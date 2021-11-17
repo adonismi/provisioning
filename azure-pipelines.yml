@@ -10,14 +10,14 @@ stages:
     - task: TerraformInstaller@0
       displayName: install
       inputs:
-        terraformVersion: '0.12.3'
+        terraformVersion: '1.0.11'
 
     - task: TerraformTaskV2@2
       displayName: init
       inputs:
         provider: 'azurerm'
         command: 'init'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform/terraform'
         backendServiceArm: 'azure-spn'
         backendAzureRmResourceGroupName: 'terraform-rg'
         backendAzureRmStorageAccountName: 'adonisterraformstorage'
