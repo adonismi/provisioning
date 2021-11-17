@@ -4,9 +4,9 @@ provider "azurerm" {
 
 terraform {
     backend "azurerm" {
-        resource_group_name     = "terraform_rg"
+        resource_group_name     = "terraform-rg"
         storage_account_name    = "adonisterraformstorage"
-        container_name          = "terraform.terraform.tfstate"
+        container_name          = "adonisterraformcontainer"
     }
 }
 
