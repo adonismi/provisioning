@@ -380,7 +380,8 @@
               </configuration>
             </plugin>
           </plugins>
-        </pluginManagement>
+  </pluginManagement>
+  	<finalName>petclinic</finalName>
       </build>
     </profile>
   </profiles>
