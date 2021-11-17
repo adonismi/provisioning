@@ -1,0 +1,444 @@
+    1  ls
+    2  yum history
+    3  sudo yum history
+    4  docker -v
+    5  sudo vim Dockerfile
+    6  ls
+    7  sudo yum git install
+    8  sudo yum git
+    9  sudo yum install git
+   10  sudo yum install maven
+   11  mvn -v
+   12  java -v
+   13  java -version
+   14  clear
+   15  git pull https://github.com/adonismi/provisioning.git
+   16  git init
+   17  git clone https://github.com/adonismi/provisioning.git
+   18  ls
+   19  cd provisioning/
+   20  ls
+   21  mvn compile war:war -Dmaven.test.skip=true Dcheckstyle.skip
+   22  java -version
+   23  yum install openjdk
+   24  sudo yum install openjdk
+   25  sudo yum install java-1.8.0-openjdk-devel
+   26  maven -v
+   27  mvn -v
+   28  ls
+   29  maven build
+   30  mvn build
+   31  sudo mvn build
+   32  sudo vim .m2/settings.xml
+   33  ls -all
+   34  ls ~ -all
+   35  ls
+   36  cd .m2
+   37  cd
+   38  cd .m2
+   39  ls
+   40  ls -all
+   41  cd repository/
+   42  ls
+   43  mvn validate
+   44  ls
+   45  cd
+   46  ls
+   47  cd provisioning/
+   48  maven validate
+   49  mvn validate
+   50  mvn validate -X
+   51  cd
+   52  cd provisioning/
+   53  ls
+   54  ADD file:aea313ae50ce6474a3df142b34d4dcba4e7e0186ea6fe55389cb2ea903b9ebbb in / 
+   55  Docker ADD file:aea313ae50ce6474a3df142b34d4dcba4e7e0186ea6fe55389cb2ea903b9ebbb in / 
+   56  docker ADD file:aea313ae50ce6474a3df142b34d4dcba4e7e0186ea6fe55389cb2ea903b9ebbb in / 
+   57  docker pull adonismi/provisioning:latest
+   58  sudo docker pull adonismi/provisioning:latest
+   59  docker image ls
+   60  sudo docker image ls
+   61  sudo docker container run -it --publish 8086:8080 adonismi/provisioning
+   62  docker image inspect 
+   63  docker image inspect adonismi/provisioning
+   64  sudo docker image inspect adonismi/provisioning
+   65  sudo docker container run adonismi/provisioning
+   66  ls
+   67  mvn -v
+   68  cd
+   69  ls
+   70  ls ..
+   71  sudo yum --only-upgrade install maven
+   72  sudo yum -
+   73  sudo yum -h
+   74  sudo yum info maven
+   75  mvn -v
+   76  yum delete maven
+   77  yum remove maven
+   78  sudo yum remove maven
+   79  mvn -v
+   80  wget https://dlcdn.apache.org/maven/maven-3/3.8.3/binaries/apache-maven-3.8.3-bin.tar.gz
+   81  sudo wget https://dlcdn.apache.org/maven/maven-3/3.8.3/binaries/apache-maven-3.8.3-bin.tar.gz
+   82  sudo wget https://dlcdn.apache.org/maven/maven-3/3.8.3/binaries/apache-maven-3.8.3-bin.tar.gz --no-check-certificate
+   83  ls
+   84  mv apache-maven-3.8.3-bin.tar.gz /tmp/
+   85  ls
+   86  cd /tmp/
+   87  ls
+   88  sudo tar xf apache-maven-3.8.3-bin.tar.gz -C /opt
+   89  sudo ln -s /opt/apache-maven-3.8.3 /opt/maven
+   90  sudo vim /etc/profile.d/maven.sh
+   91  sudo chmod +x /etc/profile.d/maven.sh
+   92  source /etc/profile.d/maven.sh
+   93  mvn -v
+   94  cd
+   95  cd provisioning/
+   96  mvn init
+   97  mvn validate
+   98  maven compile war:war -Dmaven.test.skip=true Dcheckstyle.skip
+   99  mvn compile war:war -Dmaven.test.skip=true Dcheckstyle.skip
+  100  mvn compile war:war -Dmaven.test.skip=true -Dcheckstyle.skip
+  101  ls
+  102  cd provisioning/
+  103  cd target/
+  104  ls
+  105  docker
+  106  docker image ls
+  107  sudo docker image ls
+  108  ls
+  109  mv spring-petclinic-2.5.0-SNAPSHOT.war petclinic.war
+  110  ls
+  111  sudo docker run adonismi/provisioning
+  112  ls
+  113  clear
+  114  ls
+  115  cp petclinic.war ..
+  116  ls
+  117  cd
+  118  cd /
+  119  cd -
+  120  cd *
+  121  cd
+  122  cd provisioning/
+  123  ls
+  124  mkdir Docker
+  125  mv petclinic.war Docker/
+  126  cd Docker/
+  127  sudo vim Dockerfile
+  128  sudo docker image build -t Tomcat:pro
+  129  sudo docker image build tomcat:prov
+  130  sudo docker image build to
+  131  sudo docker image build -t tomcat:prov Dockerfile
+  132  sudo docker image build -t tomcat:prov .
+  133  sudo vm Dockerfile 
+  134  sudo vim Dockerfile 
+  135  sudo docker image build -t tomcat:prov .
+  136  ls
+  137  sudo vim Dockerfile 
+  138  sudo docker image build -t tomcat:prov .
+  139  docker image ls
+  140  sudo docker image ls
+  141  docker run tomcat:prov
+  142  sudo docker run tomcat:prov
+  143  clear
+  144  curl google.com
+  145  curl devoteam.nl
+  146  curl https://nl.devoteam.com
+  147  curl www.google.nl
+  148  clear
+  149  sudo docker run tomcat:prov
+  150  sudo docker image build -t tomcat:prov .
+  151  sudo docker image 
+  152  curl http://localhost:8080/
+  153  sudo curl http://localhost:8080/
+  154  curl www.google.com
+  155  clear
+  156  sudo docker image build -t tomcat:prov .
+  157  sudo docker run tomcat:prov
+  158  sudo lsof -i -P -n | grep LISTEN
+  159  ifconfig
+  160  curl 127.0.0.1
+  161  curl 10.0.1.4
+  162  curl 172.17.0.1
+  163  firewall-cmd --permanent --add-port=8080/tcp
+  164  systemctl start firewallD
+  165  sudo su
+  166  cd
+  167  cd ~
+  168  cd -\
+  169  cd -
+  170  cd --
+  171  ls
+  172  cd provisioning/Docker/
+  173  ls
+  174  cd
+  175  cd -
+  176  sudo docker run tomcat:prov
+  177  sudo docker run tomcat:prov --publish 8085;
+  178  sudo docker run tomcat:prov --publish 8085:8080
+  179  sudo docker run -it --publish 8085:8080 tomcat:prov
+  180  iptables
+  181  iptables --wait
+  182  iptables --wait nat
+  183  iptables --wait -t nat -A DOCKER -p tcp -d 0/0 --dport 8085 -j DNAT --to-destination 17.17.02:8080 ! -i docker0
+  184  sudo docker run -it --publish 8085:8080 tomcat:prov
+  185  sudo docker run -it --publish 8080:8080 tomcat:prov
+  186  sudo docker run tomcat:prov
+  187  docker image ls
+  188  clear 
+  189  sudo docker image ls
+  190  docker run adonismi/provisioning
+  191  sudo docker run adonismi/provisioning
+  192  curl http:localhost:8080
+  193  curl http://localhost:8080
+  194  sl
+  195  ls
+  196  cd provisioning/
+  197  ls
+  198  cd Docker/
+  199  ls
+  200  sudo vim Dockerfile 
+  201  curl http://localhost:8080/
+  202  systemctl status tomcat
+  203  systemctl status docker
+  204  curl localhost:8080
+  205  curl http://localhost:8080
+  206  history
+  207  curl http://localhost:8080
+  208  sudo yum install nginx
+  209  sudo yum epel-releae
+  210  sudo yum epel-release
+  211  sudo yum install epel-release
+  212  sudo yum update
+  213  sudo yum install nginx
+  214  sudo systemctl start nginx
+  215  sudo systemctl status nginx
+  216  grep localhost:8080
+  217  curl localhost:8080
+  218  netstat -tulpn
+  219  netstat -tulnp
+  220  curl localhost:80
+  221  sudo systemctl status nginx
+  222  sudo systemctl stop nginx
+  223  sudo systemctl status nginx
+  224  curl 172.17.0.2:8080
+  225  curl 172.17.0.2:8080/petclinic
+  226  curl 172.17.0.2:8080/home
+  227  curl 172.17.0.2:8080
+  228  clear
+  229  curl localhost:8080
+  230  curl 172.17.0.2:8080
+  231  curl localhost:8080/manager/html
+  232  curl 172.17.0.2:8080/manager/html
+  233  clear
+  234  s
+  235  ls
+  236  sudo vim Dockerfile 
+  237  docker build -t test .
+  238  sudo docker build -t test .
+  239  docker run -rm -it -p 8080:8080 test
+  240  docker run --rm -it -p 8080:8080 test
+  241  sudo docker run --rm -it -p 8080:8080 test
+  242  ls
+  243  cd provisioning/
+  244  cd Docker/
+  245  sudo docker run --rm -it -p 8080:8080 test
+  246  cd ..
+  247  mvn -v
+  248  mvn deploy -Dmaven.test.skip=true -Dcheckstyle.skip
+  249  mvn install -Dmaven.test.skip=true -Dcheckstyle.skip
+  250  ./mvnw package
+  251  java -jar target/*.jar
+  252  clear
+  253  docker container
+  254  docker container ls
+  255  sudo docker container ls
+  256  sudo docker ps test
+  257  sudo docker ps 
+  258  clear
+  259  sudo docker exec test
+  260  sudo docker exec
+  261  sudo docker exec test ls
+  262  sudo docker exec b527ddb54c5a ls
+  263  sudo docker exec b527ddb54c5a bash
+  264  sudo docker exec b527ddb54c5a -it bash
+  265  sudo docker exec -it b527ddb54c5a bash
+  266  clear
+  267  ls
+  268  clear
+  269  grep localhost:8080
+  270  curl localhost:8080
+  271  ls
+  272  sudo vim Dockerfile 
+  273  curl localhost:8080
+  274  curl localhost:80
+  275  curl localhost:8080
+  276  curl http://localhost:8080
+  277  curl localhost:80
+  278  curl http://localhost:8080
+  279  curl localhost:80
+  280  curl http://localhost:8080
+  281  clear
+  282  curl http://localhost:8080
+  283  ls
+  284  sudo vim Docker
+  285  curl http://localhost:8080
+  286  curl -v localhost:8080
+  287  netstat -tlpen | grep 8080
+  288  sudo netstat -tlpen | grep 8080
+  289  cd provisioning/
+  290  sudo docker image ls
+  291  ls
+  292  sudo vim Dockerfile
+  293  sudo vim pom.xml 
+  294  ls target/
+  295  mvn compile -Dmaven.test.skip=true -Dcheckstyle.skip
+  296  ls target/
+  297  cd target/
+  298  mv spring-petclinic-2.5.0-SNAPSHOT.jar petclinic.jar
+  299  cd ..
+  300  ls
+  301  sudo docker build -f Dockerfile -t petclinic .
+  302  docker images
+  303  sudo docker images
+  304  docker run -p 8080:8080 petclinic
+  305  sudo docker run -p 8080:8080 petclinic
+  306  sudo vim Dockerfile 
+  307  sudo docker build -f Dockerfile -t petclinic .
+  308  sudo docker run -p 8080:8080 petclinic
+  309  sudo docker run petclinic
+  310  history | grep .mvnw
+  311  sudo docker images
+  312  sudo docker run petclinic
+  313  sudo docker run petclinic:main
+  314  curl localhost:8080
+  315  clear
+  316  curl localhost:8080
+  317  docker image ls
+  318  sudo docker image ls
+  319  history
+  320  ls
+  321  cd provisioning/
+  322  cd Docker/
+  323  ls
+  324  clear
+  325  history 5
+  326  history 10
+  327  history 20
+  328  sudo docker run --rm -it -p 8080:8080 test
+  329  clear
+  330  sudo docker run --rm -it -p 8080:8080 test
+  331  clear
+  332  sudo docker containers
+  333  sudo docker container ls
+  334  sudo docker exec f5b59abfd28 bash
+  335  sudo docker exec f5b59abf5d28 bash
+  336  sudo docker -it exec f5b59abf5d28 bash
+  337  sudo docker exec -it f5b59abf5d28 bash
+  338  sudo docker image ls
+  339  sudo docker tag petclinic petclinic:main
+  340  sudo docker image ls
+  341  sudo docker push adonismi/provisioning:main
+  342  sudo docker push adonismi/provisioning petclinic:main
+  343  curl localhost:8080
+  344  history | grep .mvnw
+  345  java -jar target/*.jar
+  346  cd ..
+  347  java -jar target/*.jar
+  348  sudo vim Docker
+  349  sudo vim Dockerfile 
+  350  curl localhost:8080
+  351  cd provisioning/Docker/
+  352  cd ..
+  353  ls
+  354  docker images
+  355  sudo docker images
+  356  docker build -f Dockerfile -t adonismi/provisioning:main
+  357  docker build -f Dockerfile -t adonismi/provisioning:main .
+  358  sudo docker build -f Dockerfile -t adonismi/provisioning:main .
+  359  sudo docker images
+  360  sudo docker push adonismi/provisioning:main
+  361  docker login
+  362  sudo docker login
+  363  sudo docker push adonismi/provisioning:main
+  364  sudo docker images
+  365  sudo vim Dockerfile 
+  366  sudo docker build -f Dockerfile -t test .
+  367  sudo docker images 
+  368  sudo docker run -p 8080:8080 petclinic
+  369  sudo docker run -p 8080:8080 test
+  370  sudo docker run petclinic
+  371  sudo docker run test
+  372  ls
+  373  cd provisioning/
+  374  ls
+  375  sudo vim Dockerfile 
+  376  sudo docker build -f Dockerfile -t test .
+  377  cd target/
+  378  ls
+  379  cp petclinic.jar ../..
+  380  cd
+  381  ls
+  382  sudo docker build -f Dockerfile -t test .
+  383  sudo vim Dockerfile 
+  384  rm Dockerfile 
+  385  ls
+  386  sudo rm Dockerfile 
+  387  ls
+  388  mv provisioning/Dockerfile .
+  389  ls
+  390  sudo docker build -f Dockerfile -t test .
+  391  sudo docker run -p 8080:8080 test
+  392  sudo docker build -f Dockerfile -t adonismi/provisioning:direct .
+  393  docker login
+  394  sudo date -s "17 Nov 2021 15:26"
+  395  docker login
+  396  sudo docker login
+  397  sudo docker images
+  398  sudo docker push adonismi/provisioning:direct
+  399  ls
+  400  cd provisioning/
+  401  ls
+  402  git checkout -b Azure
+  403  git status
+  404  git add .
+  405  git commit "Azure Commit"
+  406  git commit -m "Azure Commit"
+  407  git config --global user.email "adonis.mohamed.ibrahima@devoteam.com"
+  408  git config --global user.name "Adonis"
+  409  git commit -m "Azure Commit"
+  410  git push Azure
+  411  git push origin Azure
+  412  ls
+  413  cd
+  414  ls
+  415  cd provisioning/
+  416  ls
+  417  cd tar
+  418  cd target/
+  419  ls
+  420  sudo docker
+  421  sudo docker images
+  422  cd .. 
+  423  ls
+  424  cd Docker/
+  425  ls
+  426  cd 
+  427  ls
+  428  mv Dockerfile provisioning/
+  429  ls
+  430  cd provisioning/
+  431  git add .
+  432  git commit "Dockerfile added"
+  433  sudo vim Docker/Dockerfile 
+  434  rm Docker/Dockerfile 
+  435  sudo rm Docker/Dockerfile 
+  436  mv Dockerfile Docker/
+  437  ls
+  438  cd Docker/
+  439  ls
+  440  git add .
+  441  git commit -m "Dockerfile added"
+  442  git push origin Azure
+  443  history
+  444  history >> history.txt
