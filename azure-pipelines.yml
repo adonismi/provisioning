@@ -1,0 +1,73 @@
+trigger:
+- master
+
+stages:
+- stage: Acceptation
+  jobs:
+  - job: AcceptationEnvironment
+    continueOnError: false
+    steps:
+    - task: TerraformInstaller@0
+      displayName: install
+      inputs:
+        terraformVersion: '1.0.11'
+
+    - task: TerraformTaskV2@2
+      displayName: init
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform/terraform'
+        backendServiceArm: 'azure-spn'
+        backendAzureRmResourceGroupName: 'terraform-rg'
+        backendAzureRmStorageAccountName: 'adonisterraformstorage'
+        backendAzureRmContainerName: 'adonisterraformcontainer'
+        backendAzureRmKey: 'terraform.tfstate'
+
+    - task: TerraformTaskV2@2
+      displayName: 'validate'
+      inputs:
+        provider: 'azurerm'
+        command: 'validate'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+
+    - task: TerraformTaskV2@2
+      displayName: 'plan'
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+        environmentServiceNameAzureRM: 'azure-spn'
+
+    - task: TerraformTaskV2@2
+      displayName: 'apply'
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+        environmentServiceNameAzureRM: 'azure-spn'
+
+    - task: MavenAuthenticate@0
+      inputs:
+        artifactsFeeds: 'adonisprovisioning'
+
+    - task: Maven@3
+      inputs:
+        mavenPomFile: 'pom.xml'
+        goals: 'compile'
+        options: '-Dmaven.test.skip -Dcheckstyle.skip'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        javaHomeOption: 'JDKVersion'
+        mavenVersionOption: 'Default'
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: false
+
+    - task: Ansible@0
+      inputs:
+        ansibleInterface: 'agentMachine'
+        playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/Ansible/provisioning'
+        inventoriesAgentMachine: 'hostList'
+        inventoryHostListAgentMachine: '20.71.45.11 ansible_connection=ssh ansible_ssh_user=azureuser'
+
