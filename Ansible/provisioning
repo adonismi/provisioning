@@ -1,7 +1,7 @@
 ---
 - name: Install docker
   gather_facts: No
-  hosts: azurevm
+  hosts: provisioning
   become: yes
 
   tasks:

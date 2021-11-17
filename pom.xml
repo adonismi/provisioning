@@ -268,7 +268,8 @@
         </dependencies>
       </plugin>
     </plugins>
-  </build>
+   <finalName>petclinic</finalName> 
+ </build>
 
   <licenses>
     <license>

@@ -1,0 +1,7 @@
+#Simple Ansible Playbook (Playbook1.yml)
+-
+        name: Play 1
+        hosts: provisioning
+        tasks:
+                - name: Execute command 'Touch'
+                  command: touch HelloWorld

@@ -6,7 +6,7 @@ terraform {
     backend "azurerm" {
         resource_group_name     = "terraform-rg"
         storage_account_name    = "adonisterraformstorage"
-        container_name          = "terraform.terraform.tfstate"
+        container_name          = "adonisterraformcontainer"
     }
 }
 
@@ -34,13 +34,6 @@ resource "azurerm_subnet" "subnet" {
     address_prefixes       = ["10.0.1.0/24"]
 }
 
-# Create public IPs
-resource "azurerm_public_ip" "publicip" {
-    name                         = "pipeline_publicip"
-    location                     = "westeurope"
-    resource_group_name          = azurerm_resource_group.resourcegroup.name
-    allocation_method            = "Dynamic"
-}
 
 # Create Network Security Group and rule
 resource "azurerm_network_security_group" "networksecuritygroup" {
@@ -59,7 +52,23 @@ resource "azurerm_network_security_group" "networksecuritygroup" {
         source_address_prefix      = "*"
         destination_address_prefix = "*"
     }
+    security_rule {
+        name                       = "port_8080"
+        priority                   = 1111
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "8080"
+        source_address_prefix      = "*"
+        destination_address_prefix = "*"
+    }
 }
+
+    resource "azurerm_subnet_network_security_group_association" "example" {
+ 	 subnet_id                 = azurerm_subnet.subnet.id
+ 	 network_security_group_id = azurerm_network_security_group.networksecuritygroup.id
+    }
 
 # Create network interface
 resource "azurerm_network_interface" "networkinterface" {
@@ -71,7 +80,7 @@ resource "azurerm_network_interface" "networkinterface" {
         name                          = "pipeline_nic_config"
         subnet_id                     = azurerm_subnet.subnet.id
         private_ip_address_allocation = "Dynamic"
-        public_ip_address_id          = azurerm_public_ip.publicip.id
+	public_ip_address_id	      = "/subscriptions/982abf2e-ad19-4895-ae55-8fc1da966f38/resourceGroups/terraform-rg/providers/Microsoft.Network/publicIPAddresses/public-ip-static"
     }
 }
 
@@ -106,9 +115,12 @@ resource "tls_private_key" "sshkey" {
   rsa_bits = 4096
 }
 
-output "tls_private_key" {
-    value = tls_private_key.sshkey.private_key_pem
-    sensitive = true
+#Insert Public key
+resource "azurerm_ssh_public_key" "publickey" {
+    name = "pipeline_publickey"
+    resource_group_name = azurerm_resource_group.resourcegroup.name
+    location = "West Europe"
+    public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDOKinV5qCAB+MYhaWcAoOzIk2ljX8NfSCmCG6KPFFNKZ4n2AbK89hdPgs9eAwNEAA8m5V+NjdC0foXlhVz4HZ8ZAj6VFWFP1Rf7jZ4b/aIxYv2p7NUx4199882DLjl4SKTJ/LDoZHaUJY0LygP0QhSDwDmttdXThydCiiQodxfpI9mMFIckV4Of+3NerBumLVYhAZmIub2d6mw8EVPh3Qzhx3HvQWhqThYO+2enhx4F15RYR0Xc6DB7zZvbi2n7y2cTtv2v4nrpBgWPWMTz7Iuy19d8EB7BDZpU4wTRKzGu4hhg4jkfkL6nFxyeCHajruqHgAj8yayqyI+W2/G1f5wQvUsaSPiBUqjDRHOsgmWh+Zo5Uu1B73DjUJzTUAELtn1DvYG76PTKcc68jF4ljOd0UpoKydLp2ZErlDcGtFynnTCfKKxdgup3yGidYRGGWGmszKHl2nBmLo2JE5f5vFB/f7OpJR3Nfw++MLHD5yaB0P9IzJ6Y8qHJyuMQuqB/00= Adonis@nexus"
 }
 
 # Create virtual machine
@@ -138,16 +150,21 @@ resource "azurerm_linux_virtual_machine" "virtualmachine" {
 
     admin_ssh_key {
         username       = "azureuser"
-        public_key     = tls_private_key.sshkey.public_key_openssh
+        public_key     = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDOKinV5qCAB+MYhaWcAoOzIk2ljX8NfSCmCG6KPFFNKZ4n2AbK89hdPgs9eAwNEAA8m5V+NjdC0foXlhVz4HZ8ZAj6VFWFP1Rf7jZ4b/aIxYv2p7NUx4199882DLjl4SKTJ/LDoZHaUJY0LygP0QhSDwDmttdXThydCiiQodxfpI9mMFIckV4Of+3NerBumLVYhAZmIub2d6mw8EVPh3Qzhx3HvQWhqThYO+2enhx4F15RYR0Xc6DB7zZvbi2n7y2cTtv2v4nrpBgWPWMTz7Iuy19d8EB7BDZpU4wTRKzGu4hhg4jkfkL6nFxyeCHajruqHgAj8yayqyI+W2/G1f5wQvUsaSPiBUqjDRHOsgmWh+Zo5Uu1B73DjUJzTUAELtn1DvYG76PTKcc68jF4ljOd0UpoKydLp2ZErlDcGtFynnTCfKKxdgup3yGidYRGGWGmszKHl2nBmLo2JE5f5vFB/f7OpJR3Nfw++MLHD5yaB0P9IzJ6Y8qHJyuMQuqB/00= Adonis@nexus"
     }
 
     boot_diagnostics {
         storage_account_uri = azurerm_storage_account.storageaccount.primary_blob_endpoint
     }
+
+    connection {
+        type = "ssh"
+        user = "azureuser"
+        host = "20.73.45.11"
+        private_key = tls_private_key.sshkey.private_key_pem
+    }
+
 }
-  
-#Putting the IP in a file
-resource "local_file" "ip" {
-    content = azurerm_public_ip.publicip.ip_address
-    filename = "${path.module}/Terraform/ip.txt"
-}
+
+
+
