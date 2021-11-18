@@ -54,7 +54,7 @@ stages:
     - task: Maven@3
       inputs:
         mavenPomFile: 'pom.xml'
-        goals: 'compile'
+        goals: 'clean package'
         options: '-Dmaven.test.skip -Dcheckstyle.skip'
         publishJUnitResults: true
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
@@ -68,6 +68,6 @@ stages:
       inputs:
         ansibleInterface: 'agentMachine'
         playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/Ansible/provisioning'
-        inventoriesAgentMachine: 'hostList'
-        inventoryHostListAgentMachine: '20.71.45.11 ansible_connection=ssh ansible_ssh_user=azureuser'
+        inventoriesAgentMachine: 'file'
+        inventoryFileOnAgentMachine: 'hosts'
 
