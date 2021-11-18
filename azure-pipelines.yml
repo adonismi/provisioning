@@ -12,6 +12,8 @@ stages:
       inputs:
         terraformVersion: '0.12.3'
 
+    - bash: ls $(terraform-working-directory)
+
     - task: TerraformTaskV2@2
       displayName: init
       inputs:
@@ -23,7 +25,6 @@ stages:
         backendAzureRmStorageAccountName: 'adonisterraformstorage'
         backendAzureRmContainerName: 'adonisterraformcontainer'
         backendAzureRmKey: 'terraform.tfstate'
-
     - task: TerraformTaskV2@2
       displayName: 'validate'
       inputs:
