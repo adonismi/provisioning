@@ -12,8 +12,6 @@ stages:
       inputs:
         terraformVersion: '1.0.9'
 
-    - bash: ls $(terraform-working-directory)
-
     - task: TerraformTaskV2@2
       displayName: init
       inputs:
