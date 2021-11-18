@@ -17,7 +17,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'init'
-        workingDirectory: '/Terraform/terraform.tf'
+        workingDirectory: 'Terraform/terraform.tf'
         backendServiceArm: 'azure-spn'
         backendAzureRmResourceGroupName: 'terraform-rg'
         backendAzureRmStorageAccountName: 'adonisterraformstorage'
