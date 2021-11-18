@@ -10,33 +10,33 @@ stages:
     - task: TerraformInstaller@0
       displayName: install
       inputs:
-        terraformVersion: '1.0.11'
+        terraformVersion: '1.0.9'
 
     - task: TerraformTaskV2@2
       displayName: init
       inputs:
         provider: 'azurerm'
         command: 'init'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform/terraform'
+        workingDirectory: 'Terraform/'
+        commandOptions: '-reconfigure'
         backendServiceArm: 'azure-spn'
         backendAzureRmResourceGroupName: 'terraform-rg'
         backendAzureRmStorageAccountName: 'adonisterraformstorage'
         backendAzureRmContainerName: 'adonisterraformcontainer'
         backendAzureRmKey: 'terraform.tfstate'
-
     - task: TerraformTaskV2@2
       displayName: 'validate'
       inputs:
         provider: 'azurerm'
         command: 'validate'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+        workingDirectory: 'Terraform/'
 
     - task: TerraformTaskV2@2
       displayName: 'plan'
       inputs:
         provider: 'azurerm'
         command: 'plan'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+        workingDirectory: 'Terraform/'
         environmentServiceNameAzureRM: 'azure-spn'
 
     - task: TerraformTaskV2@2
@@ -44,7 +44,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'apply'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+        workingDirectory: 'Terraform/'
         environmentServiceNameAzureRM: 'azure-spn'
 
     - task: MavenAuthenticate@0
