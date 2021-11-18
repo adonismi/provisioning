@@ -20,6 +20,7 @@ stages:
         provider: 'azurerm'
         command: 'init'
         workingDirectory: 'Terraform/'
+        commandOptions: '-reconfigure'
         backendServiceArm: 'azure-spn'
         backendAzureRmResourceGroupName: 'terraform-rg'
         backendAzureRmStorageAccountName: 'adonisterraformstorage'
@@ -30,14 +31,14 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'validate'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+        workingDirectory: 'Terraform/'
 
     - task: TerraformTaskV2@2
       displayName: 'plan'
       inputs:
         provider: 'azurerm'
         command: 'plan'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+        workingDirectory: 'Terraform/'
         environmentServiceNameAzureRM: 'azure-spn'
 
     - task: TerraformTaskV2@2
@@ -45,7 +46,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'apply'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+        workingDirectory: 'Terraform/'
         environmentServiceNameAzureRM: 'azure-spn'
 
     - task: MavenAuthenticate@0
