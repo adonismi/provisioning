@@ -84,16 +84,10 @@ stages:
 
     - task: Docker@2
       inputs:
+        containerRegistry: 'Dockerhub'
         repository: 'adonismi/provisioning'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
         buildContext: '$(Pipeline.Workspace)'
         tags: 'pipeline'
-
-    - task: Ansible@0
-      inputs:
-        ansibleInterface: 'agentMachine'
-        playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/Ansible/provisioning'
-        inventoriesAgentMachine: 'file'
-        inventoryFileOnAgentMachine: 'hosts'
 
