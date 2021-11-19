@@ -12,6 +12,13 @@ stages:
       inputs:
         secureFile: 'PrivateKey SSH local'
 
+    - task: SSH@0
+      inputs:
+        sshEndpoint: 'Terraform AzureVM SSH'
+        runOptions: 'commands'
+        commands: 'ls'
+        readyTimeout: '20000'
+
     - task: Ansible@0
       inputs:
         ansibleInterface: 'agentMachine'
