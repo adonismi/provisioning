@@ -9,7 +9,11 @@ stages:
 
     - task: Ansible@0
       inputs:
-        ansibleInterface: 'agentMachine'
-        playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/Ansible/provisioning'
-        inventoriesAgentMachine: 'hostList'
-        inventoryHostListAgentMachine: '20.71.45.11'
+        ansibleInterface: 'remoteMachine'
+        connectionOverSsh: 'Terraform AzureVM SSH'
+        playbookSourceRemoteMachine: 'agentMachine'
+        playbookRootRemoteMachine: 'Ansible/'
+        playbookPathLinkedArtifactOnRemoteMachine: 'Ansible/provisioning'
+        inventoriesRemoteMachine: 'file'
+        inventoryFileSourceRemoteMachine: 'agentMachine'
+        inventoryFileLinkedArtifactOnRemoteMachine: 'hosts'
