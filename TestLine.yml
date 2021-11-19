@@ -16,12 +16,12 @@ stages:
       inputs:
         sshEndpoint: 'Terraform AzureVM SSH'
         runOptions: 'commands'
-        commands: 'ls'
+        commands: 'pwd'
         readyTimeout: '20000'
 
     - task: Ansible@0
       inputs:
         ansibleInterface: 'agentMachine'
         playbookPathOnAgentMachine: 'Ansible/provisioning'
-        inventoriesAgentMachine: 'file'
-        inventoryFileOnAgentMachine: 'hosts'
+        inventoriesAgentMachine: 'hostList'
+        inventoryHostListAgentMachine: '[provisioning] 20.73.45.11 ansible_connection=ssh ansible_ssh_user=azureuser'
