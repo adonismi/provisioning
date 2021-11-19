@@ -17,8 +17,8 @@ stages:
         sshEndpoint: 'Terraform AzureVM SSH'
         runOptions: 'commands'
         commands: |
-          sudo yum install epel-release
-          sudo yum install ansible
+          sudo yum  -y install epel-release
+          sudo yum  -y install ansible
           ansible-playbook -i /home/vsts/work/1/s/hosts /home/vsts/work/1/s/Ansible/Playbook1.yml
         readyTimeout: '20000'
 
