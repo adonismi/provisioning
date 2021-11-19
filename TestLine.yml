@@ -1,1 +1,14 @@
 #For testing specific parts of the first pipeline
+
+stages:
+- stage: Testing
+  jobs:
+  - job: Test1
+    continueOnError: false
+    steps:
+    - task: Ansible@0
+      inputs:
+        ansibleInterface: 'agentMachine'
+        playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/Ansible/provisioning'
+        inventoriesAgentMachine: 'file'
+        inventoryFileOnAgentMachine: 'hosts'
