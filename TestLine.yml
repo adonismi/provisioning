@@ -19,8 +19,13 @@ stages:
         commands: 'pwd'
         readyTimeout: '20000'
 
+    - task: CmdLine@2
+      inputs:
+        script: 'cat hosts'
+
     - task: Ansible@0
       inputs:
         ansibleInterface: 'agentMachine'
         playbookPathOnAgentMachine: 'Ansible/provisioning'
-        inventoriesAgentMachine: 'noInventory'
+        inventoriesAgentMachine: 'file'
+        inventoryFileOnAgentMachine: 'hosts'
