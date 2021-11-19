@@ -72,7 +72,7 @@ stages:
     - task: DownloadPipelineArtifact@2
       inputs:
         buildType: 'current'
-        artifactName: 'petclinic'
+        artifactName: 'petclinic.jar'
         itemPattern: '**/**.jar'
         targetPath: '$(Pipeline.Workspace)'
 
