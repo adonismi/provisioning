@@ -69,11 +69,25 @@ stages:
         artifact: 'petclinic.jar'
         publishLocation: 'pipeline'
 
-
-    - task: Ansible@0
+    - task: DownloadPipelineArtifact@2
       inputs:
-        ansibleInterface: 'agentMachine'
-        playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/Ansible/provisioning'
-        inventoriesAgentMachine: 'file'
-        inventoryFileOnAgentMachine: 'hosts'
+        buildType: 'current'
+        artifactName: 'petclinic.jar'
+        itemPattern: '**/**.jar'
+        targetPath: '$(Pipeline.Workspace)'
+
+    - task: DockerInstaller@0
+      inputs:
+        dockerVersion: '17.09.0-ce'
+
+
+
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'Dockerhub'
+        repository: 'adonismi/provisioning'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+        buildContext: '$(Pipeline.Workspace)'
+        tags: 'pipeline'
 
