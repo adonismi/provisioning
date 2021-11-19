@@ -26,6 +26,6 @@ stages:
     - task: Ansible@0
       inputs:
         ansibleInterface: 'agentMachine'
-        playbookPathOnAgentMachine: 'Ansible/provisioning'
+        playbookPathOnAgentMachine: 'Ansible/Playbook1.yml'
         inventoriesAgentMachine: 'file'
         inventoryFileOnAgentMachine: 'hosts'
