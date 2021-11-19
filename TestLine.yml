@@ -7,13 +7,14 @@ stages:
     continueOnError: false
     steps:
 
+
+    - task: DownloadSecureFile@1
+      inputs:
+        secureFile: 'PrivateKey SSH local'
+
     - task: Ansible@0
       inputs:
-        ansibleInterface: 'remoteMachine'
-        connectionOverSsh: 'Terraform AzureVM SSH'
-        playbookSourceRemoteMachine: 'agentMachine'
-        playbookRootRemoteMachine: 'Ansible/'
-        playbookPathLinkedArtifactOnRemoteMachine: 'Ansible/provisioning'
-        inventoriesRemoteMachine: 'file'
-        inventoryFileSourceRemoteMachine: 'agentMachine'
-        inventoryFileLinkedArtifactOnRemoteMachine: 'hosts'
+        ansibleInterface: 'agentMachine'
+        playbookPathOnAgentMachine: 'Ansible/provisioning'
+        inventoriesAgentMachine: 'file'
+        inventoryFileOnAgentMachine: 'hosts'
