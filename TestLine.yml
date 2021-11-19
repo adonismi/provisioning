@@ -6,9 +6,10 @@ stages:
   - job: Test1
     continueOnError: false
     steps:
+
     - task: Ansible@0
       inputs:
         ansibleInterface: 'agentMachine'
         playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/Ansible/provisioning'
-        inventoriesAgentMachine: 'file'
-        inventoryFileOnAgentMachine: 'hosts'
+        inventoriesAgentMachine: 'hostList'
+        inventoryHostListAgentMachine: '20.71.45.11'
