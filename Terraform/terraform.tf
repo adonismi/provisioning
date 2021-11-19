@@ -120,7 +120,7 @@ resource "azurerm_ssh_public_key" "publickey" {
     name = "pipeline_publickey"
     resource_group_name = azurerm_resource_group.resourcegroup.name
     location = "West Europe"
-    public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0jfOt5YGgGtyw6wOE+8ROp7utkcfyDtGW6zR3//L5LdvKxDMr+wOxDGdh9AAtCdHwkypKfDYYMTTe1nAn/615roMtU4YYpUOscoOi5ikSYDPPGMyTN6qFjuemWO2Xk1ljGS+NQEL0YjvD7T/fSNItqid1yU0H4IC7R0kgEiIcJ4LYWCDmG8Huhz4722gsS6xV/leElA2Y+2IRaGT0Jk3GdKptj1gcj86VT34/FUU9OLNnrvy2MqTOYj2n3XAumPfGnYy/AiSyKk8tX78v1wenKvq9M2EmY6y+QpPO9iADgtsZMOWaRCB4kDovWuIF1PZTwZQpybdvQ3QF4DLs6hVz adonis@cc-1649-135dac98-6f74ffbf9c-9bsbk"
+    public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDOKinV5qCAB+MYhaWcAoOzIk2ljX8NfSCmCG6KPFFNKZ4n2AbK89hdPgs9eAwNEAA8m5V+NjdC0foXlhVz4HZ8ZAj6VFWFP1Rf7jZ4b/aIxYv2p7NUx4199882DLjl4SKTJ/LDoZHaUJY0LygP0QhSDwDmttdXThydCiiQodxfpI9mMFIckV4Of+3NerBumLVYhAZmIub2d6mw8EVPh3Qzhx3HvQWhqThYO+2enhx4F15RYR0Xc6DB7zZvbi2n7y2cTtv2v4nrpBgWPWMTz7Iuy19d8EB7BDZpU4wTRKzGu4hhg4jkfkL6nFxyeCHajruqHgAj8yayqyI+W2/G1f5wQvUsaSPiBUqjDRHOsgmWh+Zo5Uu1B73DjUJzTUAELtn1DvYG76PTKcc68jF4ljOd0UpoKydLp2ZErlDcGtFynnTCfKKxdgup3yGidYRGGWGmszKHl2nBmLo2JE5f5vFB/f7OpJR3Nfw++MLHD5yaB0P9IzJ6Y8qHJyuMQuqB/00= Adonis@nexus"
 }
 
 # Create virtual machine
@@ -150,7 +150,7 @@ resource "azurerm_linux_virtual_machine" "virtualmachine" {
 
     admin_ssh_key {
         username       = "azureuser"
-        public_key     = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0jfOt5YGgGtyw6wOE+8ROp7utkcfyDtGW6zR3//L5LdvKxDMr+wOxDGdh9AAtCdHwkypKfDYYMTTe1nAn/615roMtU4YYpUOscoOi5ikSYDPPGMyTN6qFjuemWO2Xk1ljGS+NQEL0YjvD7T/fSNItqid1yU0H4IC7R0kgEiIcJ4LYWCDmG8Huhz4722gsS6xV/leElA2Y+2IRaGT0Jk3GdKptj1gcj86VT34/FUU9OLNnrvy2MqTOYj2n3XAumPfGnYy/AiSyKk8tX78v1wenKvq9M2EmY6y+QpPO9iADgtsZMOWaRCB4kDovWuIF1PZTwZQpybdvQ3QF4DLs6hVz adonis@cc-1649-135dac98-6f74ffbf9c-9bsbk"
+        public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDOKinV5qCAB+MYhaWcAoOzIk2ljX8NfSCmCG6KPFFNKZ4n2AbK89hdPgs9eAwNEAA8m5V+NjdC0foXlhVz4HZ8ZAj6VFWFP1Rf7jZ4b/aIxYv2p7NUx4199882DLjl4SKTJ/LDoZHaUJY0LygP0QhSDwDmttdXThydCiiQodxfpI9mMFIckV4Of+3NerBumLVYhAZmIub2d6mw8EVPh3Qzhx3HvQWhqThYO+2enhx4F15RYR0Xc6DB7zZvbi2n7y2cTtv2v4nrpBgWPWMTz7Iuy19d8EB7BDZpU4wTRKzGu4hhg4jkfkL6nFxyeCHajruqHgAj8yayqyI+W2/G1f5wQvUsaSPiBUqjDRHOsgmWh+Zo5Uu1B73DjUJzTUAELtn1DvYG76PTKcc68jF4ljOd0UpoKydLp2ZErlDcGtFynnTCfKKxdgup3yGidYRGGWGmszKHl2nBmLo2JE5f5vFB/f7OpJR3Nfw++MLHD5yaB0P9IzJ6Y8qHJyuMQuqB/00= Adonis@nexus"
     }
 
     boot_diagnostics {
