@@ -23,5 +23,4 @@ stages:
       inputs:
         ansibleInterface: 'agentMachine'
         playbookPathOnAgentMachine: 'Ansible/provisioning'
-        inventoriesAgentMachine: 'hostList'
-        inventoryHostListAgentMachine: '[provisioning] 20.73.45.11 ansible_connection=ssh ansible_ssh_user=azureuser'
+        inventoriesAgentMachine: 'noInventory'
