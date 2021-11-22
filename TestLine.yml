@@ -7,11 +7,13 @@ stages:
     continueOnError: false
     steps:
 
-    - task: SSH@0
+    - task: Ansible@0
       inputs:
-        sshEndpoint: 'Terraform AzureVM SSH'
-        runOptions: 'commands'
-        commands: 
-          sudo yum  -y install epel-release
-          sudo yum  -y install ansible
-        readyTimeout: '20000'
+        ansibleInterface: 'remoteMachine'
+        connectionOverSsh: 'Terraform AzureVM SSH'
+        playbookSourceRemoteMachine: 'agentMachine'
+        playbookRootRemoteMachine: 'Ansible/'
+        playbookPathLinkedArtifactOnRemoteMachine: 'Ansible/Playbook1.yml'
+        inventoriesRemoteMachine: 'file'
+        inventoryFileSourceRemoteMachine: 'agentMachine'
+        inventoryFileLinkedArtifactOnRemoteMachine: 'hosts'
