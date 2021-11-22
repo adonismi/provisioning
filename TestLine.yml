@@ -4,25 +4,14 @@ stages:
 - stage: Testing
   jobs:
   - job: Test1
-    continueOnError: true
+    continueOnError: false
     steps:
-
 
     - task: SSH@0
       inputs:
         sshEndpoint: 'Terraform AzureVM SSH'
         runOptions: 'commands'
         commands: 
-          pwd
+          sudo yum  -y install epel-release
+          sudo yum  -y install ansible
         readyTimeout: '20000'
-
-    - task: CmdLine@2
-      inputs:
-        script: 'cat hosts'
-
-    - task: Ansible@0
-      inputs:
-        ansibleInterface: 'agentMachine'
-        playbookPathOnAgentMachine: 'Ansible/Playbook1.yml'
-        inventoriesAgentMachine: 'file'
-        inventoryFileOnAgentMachine: 'hosts'
