@@ -1,7 +1,7 @@
 ---
 - name: Install docker
   gather_facts: No
-  hosts: provisioning
+  hosts: localhost
   become: yes
 
   tasks:
