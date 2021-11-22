@@ -47,29 +47,44 @@ stages:
         workingDirectory: 'Terraform/'
         environmentServiceNameAzureRM: 'azure-spn'
 
-  - stage: desolation
-  jobs:
-    - job: destruction
-      continueOnError: false
-      steps:
-            - task: TerraformInstaller@0
-              displayName: 'install'
-              inputs:
-                terraformVersion: '0.12.3'
-            - task: TerraformTaskV2@2
-              displayName: 'init'
-              inputs:
-                provider: 'azurerm'
-                command: 'init'
-                workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
-                backendServiceArm: 'azure-spn'
-                backendAzureRmResourceGroupName: 'terraform-rg'
-                backendAzureRmStorageAccountName: 'adonisterraformstorage'
-                backendAzureRmContainerName: 'adonisterraformcontainer'
-                backendAzureRmKey: 'terraform.tfstate'
-            - task: TerraformTaskV2@2
-              inputs:
-                provider: 'azurerm'
-                command: 'destroy'
-                workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
-                environmentServiceNameAzureRM: 'azure-spn'
+    - task: MavenAuthenticate@0
+      inputs:
+        artifactsFeeds: 'adonisprovisioning'
+
+    - task: Maven@3
+      inputs:
+        mavenPomFile: 'pom.xml'
+        options: '-Dmaven.test.skip -Dcheckstyle.skip'
+        publishJUnitResults: true
+        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        javaHomeOption: 'JDKVersion'
+        mavenVersionOption: 'Default'
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: false
+
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(System.DefaultWorkingDirectory)'
+        artifact: 'petclinic.jar'
+        publishLocation: 'pipeline'
+
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        buildType: 'current'
+        artifactName: 'petclinic.jar'
+        itemPattern: '**/**.jar'
+        targetPath: '$(Pipeline.Workspace)'
+
+    - task: DockerInstaller@0
+      inputs:
+        dockerVersion: '17.09.0-ce'
+
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'Dockerhub'
+        repository: 'adonismi/provisioning'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+        buildContext: '$(Pipeline.Workspace)'
+        tags: 'pipeline'
