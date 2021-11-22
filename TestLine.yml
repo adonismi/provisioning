@@ -8,10 +8,6 @@ stages:
     steps:
 
 
-    - task: DownloadSecureFile@1
-      inputs:
-        secureFile: 'PrivateKey SSH local'
-
     - task: SSH@0
       inputs:
         sshEndpoint: 'Terraform AzureVM SSH'
