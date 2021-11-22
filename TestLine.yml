@@ -9,20 +9,21 @@ stages:
 
     - task: SSH@0
       inputs:
-        sshEndpoint: 'Terraform AzureVM SSH'
+        sshEndpoint: 'Terraform AzureVM SSH -m PEM'
         runOptions: 'commands'
-        commands: 
-          sudo yum  -y install epel-release
+        commands: |
+          sudo yum  -y install epel-release 
           sudo yum  -y install ansible
         readyTimeout: '20000'
 
     - task: Ansible@0
       inputs:
         ansibleInterface: 'remoteMachine'
-        connectionOverSsh: 'Terraform AzureVM SSH'
+        connectionOverSsh: 'Terraform AzureVM SSH -m PEM'
         playbookSourceRemoteMachine: 'agentMachine'
         playbookRootRemoteMachine: 'Ansible/'
         playbookPathLinkedArtifactOnRemoteMachine: 'Ansible/Playbook1.yml'
         inventoriesRemoteMachine: 'file'
         inventoryFileSourceRemoteMachine: 'agentMachine'
         inventoryFileLinkedArtifactOnRemoteMachine: 'hosts'
+
