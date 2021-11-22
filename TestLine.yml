@@ -22,7 +22,7 @@ stages:
         connectionOverSsh: 'Terraform AzureVM SSH -m PEM'
         playbookSourceRemoteMachine: 'agentMachine'
         playbookRootRemoteMachine: 'Ansible/'
-        playbookPathLinkedArtifactOnRemoteMachine: 'Ansible/Playbook1.yml'
+        playbookPathLinkedArtifactOnRemoteMachine: 'Playbook1.yml'
         inventoriesRemoteMachine: 'file'
         inventoryFileSourceRemoteMachine: 'agentMachine'
         inventoryFileLinkedArtifactOnRemoteMachine: 'hosts'
