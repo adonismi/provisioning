@@ -48,10 +48,12 @@ stages:
         environmentServiceNameAzureRM: 'azure-spn'
 
     - task: MavenAuthenticate@0
+      displayName: 'Maven Authenticate'
       inputs:
         artifactsFeeds: 'adonisprovisioning'
 
     - task: Maven@3
+      displayName: 'Maven package'
       inputs:
         mavenPomFile: 'pom.xml'
         options: '-Dmaven.test.skip -Dcheckstyle.skip'
@@ -64,12 +66,14 @@ stages:
         sonarQubeRunAnalysis: false
 
     - task: PublishPipelineArtifact@1
+      displayName: 'Publish .jar'
       inputs:
         targetPath: '$(System.DefaultWorkingDirectory)'
         artifact: 'petclinic.jar'
         publishLocation: 'pipeline'
 
     - task: DownloadPipelineArtifact@2
+      displayName: 'Download .jar'
       inputs:
         buildType: 'current'
         artifactName: 'petclinic.jar'
@@ -77,10 +81,12 @@ stages:
         targetPath: '$(Pipeline.Workspace)'
 
     - task: DockerInstaller@0
+      displayName: 'Install Docker Pipeline'
       inputs:
         dockerVersion: '17.09.0-ce'
 
     - task: Docker@2
+      displayName: 'Build&Push Dockerhub'
       inputs:
         containerRegistry: 'Dockerhub'
         repository: 'adonismi/provisioning'
@@ -88,3 +94,25 @@ stages:
         Dockerfile: '**/Dockerfile'
         buildContext: '$(Pipeline.Workspace)'
         tags: 'pipeline'
+
+    - task: SSH@0
+      displayName: 'Install Ansible'
+      inputs:
+        sshEndpoint: 'Terraform AzureVM SSH -m PEM'
+        runOptions: 'commands'
+        commands: |
+          sudo yum  -y install epel-release 
+          sudo yum  -y install ansible
+        readyTimeout: '20000'
+
+    - task: Ansible@0
+      displayName: 'Ansible Playbook'
+      inputs:
+        ansibleInterface: 'remoteMachine'
+        connectionOverSsh: 'Terraform AzureVM SSH -m PEM'
+        playbookSourceRemoteMachine: 'agentMachine'
+        playbookRootRemoteMachine: 'Ansible/'
+        playbookPathLinkedArtifactOnRemoteMachine: 'provisioning'
+        inventoriesRemoteMachine: 'inlineContent'
+        inventoryInlineContentRemoteMachine: 'localhost ansible_connection=local'
+        failOnStdErr: false
