@@ -15,7 +15,6 @@ stages:
         playbookSourceRemoteMachine: 'agentMachine'
         playbookRootRemoteMachine: 'Ansible/'
         playbookPathLinkedArtifactOnRemoteMachine: 'Playbook1.yml'
-        inventoriesRemoteMachine: 'file'
-        inventoryFileSourceRemoteMachine: 'agentMachine'
-        inventoryFileLinkedArtifactOnRemoteMachine: 'hosts'
+        inventoriesRemoteMachine: 'inlineContent'
+        inventoryInlineContentRemoteMachine: 'localhost ansible_connection=local'
 
