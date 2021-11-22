@@ -17,5 +17,4 @@ stages:
         playbookPathLinkedArtifactOnRemoteMachine: 'provisioning'
         inventoriesRemoteMachine: 'inlineContent'
         inventoryInlineContentRemoteMachine: 'localhost ansible_connection=local'
-        sudoEnabled: true
-
+        failOnStdErr: false
