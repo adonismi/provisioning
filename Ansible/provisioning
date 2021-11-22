@@ -64,11 +64,11 @@
 
     - name: Pull docker image from Dockerhub
       docker_image:
-	name: adonismi/provisioning:latest
-	source: pull
+        name: adonismi/provisioning:latest
+        source: pull
 
     - name: Create container
       docker_container:
         name: provisioning
-	image: adonismi/provisioning:latest
-	ports: 8080:8080
+        image: adonismi/provisioning:latest
+        ports: 8080:8080
