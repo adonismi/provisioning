@@ -14,7 +14,7 @@ stages:
         connectionOverSsh: 'Terraform AzureVM SSH -m PEM'
         playbookSourceRemoteMachine: 'agentMachine'
         playbookRootRemoteMachine: 'Ansible/'
-        playbookPathLinkedArtifactOnRemoteMachine: 'Playbook1.yml'
+        playbookPathLinkedArtifactOnRemoteMachine: 'provisioning'
         inventoriesRemoteMachine: 'inlineContent'
         inventoryInlineContentRemoteMachine: 'localhost ansible_connection=local'
         sudoEnabled: true
