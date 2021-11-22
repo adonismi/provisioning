@@ -17,4 +17,5 @@ stages:
         playbookPathLinkedArtifactOnRemoteMachine: 'Playbook1.yml'
         inventoriesRemoteMachine: 'inlineContent'
         inventoryInlineContentRemoteMachine: 'localhost ansible_connection=local'
+        sudoEnabled: true
 
