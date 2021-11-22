@@ -37,7 +37,6 @@ stages:
         provider: 'azurerm'
         command: 'plan'
         workingDirectory: 'Terraform/'
-        commandOptions: '-lock=false'
         environmentServiceNameAzureRM: 'azure-spn'
 
     - task: TerraformTaskV2@2
@@ -46,7 +45,6 @@ stages:
         provider: 'azurerm'
         command: 'apply'
         workingDirectory: 'Terraform/'
-        commandOptions: '-lock=false'
         environmentServiceNameAzureRM: 'azure-spn'
 
     - task: MavenAuthenticate@0
