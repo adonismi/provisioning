@@ -7,14 +7,6 @@ stages:
     continueOnError: false
     steps:
 
-    - task: SSH@0
-      inputs:
-        sshEndpoint: 'Terraform AzureVM SSH -m PEM'
-        runOptions: 'commands'
-        commands: |
-          sudo yum  -y install epel-release 
-          sudo yum  -y install ansible
-        readyTimeout: '20000'
 
     - task: Ansible@0
       inputs:
