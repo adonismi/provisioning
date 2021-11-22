@@ -6,9 +6,14 @@ stages:
   - job: Test1
     continueOnError: false
     steps:
+
     - task: Ansible@0
       inputs:
-        ansibleInterface: 'agentMachine'
-        playbookPathOnAgentMachine: '$(System.DefaultWorkingDirectory)/Ansible/provisioning'
-        inventoriesAgentMachine: 'file'
-        inventoryFileOnAgentMachine: 'hosts'
+        ansibleInterface: 'remoteMachine'
+        connectionOverSsh: 'Terraform AzureVM SSH'
+        playbookSourceRemoteMachine: 'agentMachine'
+        playbookRootRemoteMachine: 'Ansible/'
+        playbookPathLinkedArtifactOnRemoteMachine: 'Ansible/Playbook1.yml'
+        inventoriesRemoteMachine: 'file'
+        inventoryFileSourceRemoteMachine: 'agentMachine'
+        inventoryFileLinkedArtifactOnRemoteMachine: 'hosts'
