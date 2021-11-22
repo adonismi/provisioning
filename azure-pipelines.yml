@@ -24,10 +24,12 @@ stages:
         backendAzureRmStorageAccountName: 'adonisterraformstorage'
         backendAzureRmContainerName: 'adonisterraformcontainer'
         backendAzureRmKey: 'terraform.tfstate'
-
+        
     - task: TerraformTaskV2@2
+      displayName: Destroy
       inputs:
         provider: 'azurerm'
         command: 'destroy'
         workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+        commandOptions: '-lock=false"'
         environmentServiceNameAzureRM: 'azure-spn'
