@@ -8,14 +8,7 @@ stages:
     steps:
 
     - task: CmdLine@2
+      displayName: 'Curl Petclinic'
       inputs:
         script: 'curl 20.73.45.11:8080'
         failOnStderr: false
-
-    - task: SSH@0
-      displayName: 'Curl Petclinic'
-      inputs:
-        sshEndpoint: 'Terraform AzureVM SSH -m PEM'
-        runOptions: 'commands'
-        commands: 'curl localhost:8080'
-        readyTimeout: '20000'
