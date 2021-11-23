@@ -224,10 +224,12 @@ stages:
         failOnStdErr: false
 
     - task: JMeterInstaller@0
+      displayName: 'Jmeter Install'
       inputs:
         jmeterVersion: '5.4.1'
 
     - task: CmdLine@2
+      displayName: 'Jmeter Test'
       inputs:
         script: 'jmeter -n -t Jmeter.jmx -l results01.jtl -e -o reports01'
 
