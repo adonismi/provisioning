@@ -11,3 +11,4 @@ stages:
       displayName: 'Curl Petclinic'
       inputs:
         script: 'curl 20.73.45.11:8080'
+        failOnStderr: false
