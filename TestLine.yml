@@ -7,8 +7,8 @@ stages:
     continueOnError: false
     steps:
 
-
     - task: Ansible@0
+      displayName: 'Ansible Playbook'
       inputs:
         ansibleInterface: 'remoteMachine'
         connectionOverSsh: 'Terraform AzureVM SSH -m PEM'
@@ -18,3 +18,12 @@ stages:
         inventoriesRemoteMachine: 'inlineContent'
         inventoryInlineContentRemoteMachine: 'localhost ansible_connection=local'
         failOnStdErr: false
+    - task: SSH@0
+      displayName: 'Docker Pull&Run'
+      inputs:
+        sshEndpoint: 'Terraform AzureVM SSH -m PEM'
+        runOptions: 'commands'  
+        commands: |
+          sudo docker pull adonismi/provisioning:latest
+          sudo docker run -p 8080:8080 adonismi/provisioning:latest
+        readyTimeout: '20000'
