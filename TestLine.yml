@@ -27,3 +27,7 @@ stages:
           sudo docker pull adonismi/provisioning:latest
           sudo docker run -d -p 8080:8080 --name=petclinic adonismi/provisioning:pipeline
         readyTimeout: '20000'
+
+    - task: CmdLine@2
+      inputs:
+        script: 'curl 20.73.45.11:8080'
