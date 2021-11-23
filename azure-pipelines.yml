@@ -145,7 +145,6 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
         environmentServiceNameAzureRM: 'azure-spn'
 
-stages:
 - stage: Testing
   jobs:
   - job: Tests
@@ -224,14 +223,13 @@ stages:
         readyTimeout: '20000'
         failOnStdErr: false
 
-    - task: CmdLine@2
-      displayName: 'Delay + Curl Petclinic'
+    - task: JMeterInstaller@0
       inputs:
-        script: |
-          ping google.com -c 20
-          curl 20.73.45.11:8080
+        jmeterVersion: '5.4.1'
 
-
+    - task: CmdLine@2
+      inputs:
+        script: 'jmeter -n -t Jmeter.jmx -l results01.jtl -e -o reports01'
 
     - task: TerraformTaskV2@2
       displayName: 'Destruction'
