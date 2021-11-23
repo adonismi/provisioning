@@ -7,27 +7,15 @@ stages:
     continueOnError: false
     steps:
 
-    - task: Ansible@0
-      displayName: 'Ansible Playbook'
-      inputs:
-        ansibleInterface: 'remoteMachine'
-        connectionOverSsh: 'Terraform AzureVM SSH -m PEM'
-        playbookSourceRemoteMachine: 'agentMachine'
-        playbookRootRemoteMachine: 'Ansible/'
-        playbookPathLinkedArtifactOnRemoteMachine: 'provisioning'
-        inventoriesRemoteMachine: 'inlineContent'
-        inventoryInlineContentRemoteMachine: 'localhost ansible_connection=local'
-        failOnStdErr: false
-    - task: SSH@0
-      displayName: 'Docker Pull&Run'
-      inputs:
-        sshEndpoint: 'Terraform AzureVM SSH -m PEM'
-        runOptions: 'commands'
-        commands: |
-          sudo docker pull adonismi/provisioning:latest
-          sudo docker run -d -p 8080:8080 --name=petclinic adonismi/provisioning:pipeline
-        readyTimeout: '20000'
-
     - task: CmdLine@2
       inputs:
         script: 'curl 20.73.45.11:8080'
+        failOnStderr: false
+
+    - task: SSH@0
+      displayName: 'Curl Petclinic'
+      inputs:
+        sshEndpoint: 'Terraform AzureVM SSH -m PEM'
+        runOptions: 'commands'
+        commands: 'curl localhost:8080'
+        readyTimeout: '20000'
