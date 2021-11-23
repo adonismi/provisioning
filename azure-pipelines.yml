@@ -144,3 +144,99 @@ stages:
         command: 'destroy'
         workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
         environmentServiceNameAzureRM: 'azure-spn'
+
+stages:
+- stage: Testing
+  jobs:
+  - job: Tests
+    continueOnError: false
+    steps:
+    - task: TerraformInstaller@0
+      displayName: install
+      inputs:
+        terraformVersion: '1.0.9'
+
+    - task: TerraformTaskV2@2
+      displayName: init
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: 'Terraform/'
+        commandOptions: '-reconfigure'
+        backendServiceArm: 'azure-spn'
+        backendAzureRmResourceGroupName: 'terraform-rg'
+        backendAzureRmStorageAccountName: 'adonisterraformstorage'
+        backendAzureRmContainerName: 'adonisterraformcontainer'
+        backendAzureRmKey: 'terraform.tfstate'
+    - task: TerraformTaskV2@2
+      displayName: 'validate'
+      inputs:
+        provider: 'azurerm'
+        command: 'validate'
+        workingDirectory: 'Terraform/'
+
+    - task: TerraformTaskV2@2
+      displayName: 'plan'
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        workingDirectory: 'Terraform/'
+        environmentServiceNameAzureRM: 'azure-spn'
+
+    - task: TerraformTaskV2@2
+      displayName: 'apply'
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        workingDirectory: 'Terraform/'
+        environmentServiceNameAzureRM: 'azure-spn'
+
+    - task: SSH@0
+      displayName: 'Install Ansible'
+      inputs:
+        sshEndpoint: 'Terraform AzureVM SSH -m PEM'
+        runOptions: 'commands'
+        commands: |
+          sudo yum -y install epel-release
+          sudo yum -y install ansible
+        readyTimeout: '20000'
+        failOnStdErr: false
+
+    - task: Ansible@0
+      displayName: 'Ansible Playbook'
+      inputs:
+        ansibleInterface: 'remoteMachine'
+        connectionOverSsh: 'Terraform AzureVM SSH -m PEM'
+        playbookSourceRemoteMachine: 'agentMachine'
+        playbookRootRemoteMachine: 'Ansible/'
+        playbookPathLinkedArtifactOnRemoteMachine: 'provisioning'
+        inventoriesRemoteMachine: 'inlineContent'
+        inventoryInlineContentRemoteMachine: 'localhost ansible_connection=local'
+        failOnStdErr: false
+    - task: SSH@0
+      displayName: 'Docker Pull&Run'
+      inputs:
+        sshEndpoint: 'Terraform AzureVM SSH -m PEM'
+        runOptions: 'commands'
+        commands: |
+          sudo docker pull adonismi/provisioning:latest
+          sudo docker run -d -p 8080:8080 --name=petclinic adonismi/provisioning:pipeline
+        readyTimeout: '20000'
+        failOnStdErr: false
+
+    - task: CmdLine@2
+      displayName: 'Delay + Curl Petclinic'
+      inputs:
+        script: |
+          ping google.com -c 20
+          curl 20.73.45.11:8080
+
+
+
+    - task: TerraformTaskV2@2
+      displayName: 'Destruction'
+      inputs:
+        provider: 'azurerm'
+        command: 'destroy'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+        environmentServiceNameAzureRM: 'azure-spn'
