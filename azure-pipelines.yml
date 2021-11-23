@@ -57,7 +57,6 @@ stages:
       displayName: 'Maven package'
       inputs:
         mavenPomFile: 'pom.xml'
-        options: '-Dmaven.test.skip -Dcheckstyle.skip'
         publishJUnitResults: true
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
         javaHomeOption: 'JDKVersion'
