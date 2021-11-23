@@ -4,7 +4,7 @@ trigger:
 stages:
 - stage: Acceptation
   jobs:
-  - job: AcceptationEnvironment
+  - job: Terraform
     continueOnError: false
     steps:
     - task: TerraformInstaller@0
@@ -47,6 +47,9 @@ stages:
         workingDirectory: 'Terraform/'
         environmentServiceNameAzureRM: 'azure-spn'
 
+  - job: Maven
+    continueOnError: false
+    steps:
     - task: MavenAuthenticate@0
       displayName: 'Maven Authenticate'
       inputs:
@@ -80,6 +83,9 @@ stages:
         itemPattern: '**/**.jar'
         targetPath: '$(Pipeline.Workspace)'
 
+  - job: DockerBuild
+    continueOnError: false
+    steps:
     - task: DockerInstaller@0
       displayName: 'Install Docker Pipeline'
       inputs:
@@ -95,6 +101,9 @@ stages:
         buildContext: '$(Pipeline.Workspace)'
         tags: 'pipeline'
 
+  - job: AzureVM
+    continueOnError: false
+    steps:
     - task: SSH@0
       displayName: 'Install Ansible'
       inputs:
@@ -127,15 +136,25 @@ stages:
           sudo docker run -d -p 8080:8080 --name=petclinic adonismi/provisioning:pipeline
         readyTimeout: '20000'
 
-    - task: SSH@0
+  - job: Delay
+    pool: Server
+    steps:
+    - task: Delay@1
+      displayName: 'Delay'
+      inputs:
+        delayForMinutes: '0.5' 
+
+  - job: RoundUp
+    continueOnError: false
+    steps:
+    - task: CmdLine@2
       displayName: 'Curl Petclinic'
       inputs:
-        sshEndpoint: 'Terraform AzureVM SSH -m PEM'
-        runOptions: 'commands'
-        commands: 'curl localhost:8080'
-        readyTimeout: '20000'
+        script: 'curl 20.73.45.11:8080'
+        failOnStderr: false
 
     - task: TerraformTaskV2@2
+      displayName: 'Destruction'
       inputs:
         provider: 'azurerm'
         command: 'destroy'
