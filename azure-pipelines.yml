@@ -128,6 +128,7 @@ stages:
           sudo docker pull adonismi/provisioning:latest
           sudo docker run -d -p 8080:8080 --name=petclinic adonismi/provisioning:pipeline
         readyTimeout: '20000'
+        failOnStdErr: false
 
     - task: CmdLine@2
       displayName: 'Delay + Curl Petclinic'
