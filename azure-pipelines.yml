@@ -57,8 +57,9 @@ stages:
       displayName: 'Maven package'
       inputs:
         mavenPomFile: 'pom.xml'
+        options: '-Dcheckstyle.skip'
         publishJUnitResults: true
-        testResultsFiles: '**/surefire-reports/TEST-*.xml'
+        testResultsFiles: '​′​​(System.DefaultWorkingDirectory)/**/TEST-*.xml''.'
         javaHomeOption: 'JDKVersion'
         mavenVersionOption: 'Default'
         mavenAuthenticateFeed: false
