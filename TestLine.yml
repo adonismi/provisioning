@@ -22,8 +22,8 @@ stages:
       displayName: 'Docker Pull&Run'
       inputs:
         sshEndpoint: 'Terraform AzureVM SSH -m PEM'
-        runOptions: 'commands'  
+        runOptions: 'commands'
         commands: |
           sudo docker pull adonismi/provisioning:latest
-          sudo docker run -p 8080:8080 adonismi/provisioning:latest
+          sudo docker run -d -p 8080:8080 --name=petclinic adonismi/provisioning:pipeline
         readyTimeout: '20000'
