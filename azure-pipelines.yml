@@ -95,7 +95,15 @@ stages:
         buildContext: '$(Pipeline.Workspace)'
         tags: 'pipeline'
 
-
+    - task: SSH@0
+      inputs:
+        sshEndpoint: 'Terraform AzureVM SSH -m PEM'
+        runOptions: 'commands'
+        commands: |
+          sudo yum -y install epel-release
+          sudo yum -y install ansible
+        readyTimeout: '20000'
+        failOnStdErr: false
 
     - task: Ansible@0
       displayName: 'Ansible Playbook'
@@ -108,3 +116,19 @@ stages:
         inventoriesRemoteMachine: 'inlineContent'
         inventoryInlineContentRemoteMachine: 'localhost ansible_connection=local'
         failOnStdErr: false
+    - task: SSH@0
+      displayName: 'Docker Pull&Run'
+      inputs:
+        sshEndpoint: 'Terraform AzureVM SSH -m PEM'
+        runOptions: 'commands'
+        commands: |
+          sudo docker pull adonismi/provisioning:latest
+          sudo docker run -d -p 8080:8080 --name=petclinic adonismi/provisioning:pipeline
+        readyTimeout: '20000'
+
+    - task: CmdLine@2
+      displayName: 'Show Petclinic'
+      inputs:
+        script: 'curl 20.73.45.11:8080'
+
+
