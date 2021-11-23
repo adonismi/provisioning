@@ -96,6 +96,7 @@ stages:
         tags: 'pipeline'
 
     - task: SSH@0
+      displayName: 'Install Ansible'
       inputs:
         sshEndpoint: 'Terraform AzureVM SSH -m PEM'
         runOptions: 'commands'
@@ -126,9 +127,11 @@ stages:
           sudo docker run -d -p 8080:8080 --name=petclinic adonismi/provisioning:pipeline
         readyTimeout: '20000'
 
-    - task: CmdLine@2
-      displayName: 'Show Petclinic'
+    - task: SSH@0
+      displayName: 'Curl Petclinic'
       inputs:
-        script: 'curl 20.73.45.11:8080'
-
+        sshEndpoint: 'Terraform AzureVM SSH -m PEM'
+        runOptions: 'commands'
+        commands: 'curl localhost:8080'
+        readyTimeout: '20000'
 
