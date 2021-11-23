@@ -19,7 +19,7 @@ stages:
       inputs:
         delayForMinutes: '1' 
 
-  - job: Test1
+  - job: Destroy
     continueOnError: false
     steps:
     - task: CmdLine@2
