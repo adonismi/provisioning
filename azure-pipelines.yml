@@ -135,3 +135,9 @@ stages:
         commands: 'curl localhost:8080'
         readyTimeout: '20000'
 
+    - task: TerraformTaskV2@2
+      inputs:
+        provider: 'azurerm'
+        command: 'destroy'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+        environmentServiceNameAzureRM: 'azure-spn'
