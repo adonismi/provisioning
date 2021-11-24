@@ -240,3 +240,42 @@ stages:
         command: 'destroy'
         workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
         environmentServiceNameAzureRM: 'azure-spn'
+
+- stage: Production
+  jobs:
+  - job: Production
+    continueOnError: false
+    steps:
+
+    - task: Docker@2
+      displayName: 'Build&Push Dockerhub'
+      inputs:
+        containerRegistry: 'Dockerhub'
+        repository: 'adonismi/provisioning'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+        buildContext: '$(Pipeline.Workspace)'
+        tags: 'production'
+
+    - task: SSH@0
+      displayName: 'Update to Production' 
+      inputs:
+        sshEndpoint: 'ProductionEnvironment'
+        runOptions: 'commands'
+        commands: |
+          sudo docker container ls
+          sudo docker pull adonismi/provisioning:pipeline
+          sudo docker stop petclinic
+          sudo docker rm petclinic
+          sudo docker run -d -p 8080:8080 --name=petclinic adonismi/provisioning:pipeline
+        readyTimeout: '20000'
+        failOnStdErr: false
+
+    - task: CmdLine@2
+      displayName: 'Delay + Curl New Petclinic'
+      inputs:
+        script: |
+          ping google.com -c 20
+          curl http://40.71.87.48:8080/
+          
+
