@@ -138,6 +138,16 @@ stages:
           curl 20.73.45.11:8080
 
     - task: TerraformTaskV2@2
+      displayName: 'Specific Destruction NSG-NIC Connect'
+      inputs:
+        provider: 'azurerm'
+        command: 'destroy'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+        commandOptions: '-target azurerm_network_interface_security_group_association.nsgconnectnic'
+        environmentServiceNameAzureRM: 'azure-spn'
+
+
+    - task: TerraformTaskV2@2
       displayName: 'Destruction'
       inputs:
         provider: 'azurerm'
@@ -233,6 +243,14 @@ stages:
       inputs:
         script: 'jmeter -n -t Jmeter.jmx -l results01.jtl -e -o reports01'
 
+    - task: TerraformTaskV2@2
+      displayName: 'Specific Destruction NSG-NIC Connect'
+      inputs:
+        provider: 'azurerm'
+        command: 'destroy'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/Terraform'
+        commandOptions: '-target azurerm_network_interface_security_group_association.nsgconnectnic'
+        environmentServiceNameAzureRM: 'azure-spn'
     - task: TerraformTaskV2@2
       displayName: 'Destruction'
       inputs:
