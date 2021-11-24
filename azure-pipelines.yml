@@ -272,10 +272,10 @@ stages:
         runOptions: 'commands'
         commands: |
           sudo docker container ls
-          sudo docker pull adonismi/provisioning:pipeline
+          sudo docker pull adonismi/provisioning:production
           sudo docker stop petclinic
           sudo docker rm petclinic
-          sudo docker run -d -p 8080:8080 --name=petclinic adonismi/provisioning:pipeline
+          sudo docker run -d -p 8080:8080 --name=petclinic adonismi/provisioning:production
         readyTimeout: '20000'
         failOnStdErr: false
 
