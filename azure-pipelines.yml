@@ -247,6 +247,14 @@ stages:
     continueOnError: false
     steps:
 
+    - task: DownloadPipelineArtifact@2
+      displayName: 'Download .jar'
+      inputs:
+        buildType: 'current'
+        artifactName: 'petclinic.jar'
+        itemPattern: '**/**.jar'
+        targetPath: '$(Pipeline.Workspace)'
+
     - task: Docker@2
       displayName: 'Build&Push Dockerhub'
       inputs:
