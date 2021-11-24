@@ -19,8 +19,6 @@ stages:
         readyTimeout: '20000'
         failOnStdErr: false
 
-
-
     - task: CmdLine@2
       displayName: 'Delay + Curl Petclinic'
       inputs:
