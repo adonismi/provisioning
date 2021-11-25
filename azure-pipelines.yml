@@ -125,7 +125,7 @@ stages:
         sshEndpoint: 'Terraform AzureVM SSH -m PEM'
         runOptions: 'commands'
         commands: |
-          sudo docker pull adonismi/provisioning:latest
+          sudo docker pull adonismi/provisioning:pipeline
           sudo docker run -d -p 8080:8080 --name=petclinic adonismi/provisioning:pipeline
         readyTimeout: '20000'
         failOnStdErr: false
@@ -228,7 +228,7 @@ stages:
         sshEndpoint: 'Terraform AzureVM SSH -m PEM'
         runOptions: 'commands'
         commands: |
-          sudo docker pull adonismi/provisioning:latest
+          sudo docker pull adonismi/provisioning:pipeline
           sudo docker run -d -p 8080:8080 --name=petclinic adonismi/provisioning:pipeline
         readyTimeout: '20000'
         failOnStdErr: false
